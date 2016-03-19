@@ -39,23 +39,13 @@ The basic table of colors that will be shown is:
 If there are untracked files in your working directory, a bold white
 asterisk will be added after the branch name for any of the above statuses.
 
+And, of course, if you're not in a git repository your prompt will
+work as it normally does.
+
 Note that this makes for a total of 8 options.  I've separated these
 fairly cleanly in the code, so feel free to tweak them to your preference.
 
-## Overview
-
-If you `cd` to a Git working directory, you will see the current Git branch
-name displayed in your terminal prompt. When you're not in a Git working
-directory, your prompt works like normal.
-
-The branch will be shown in different colors depending on what the status
-of your index and working directory is.  If `git status` would show you
-red output, the branch name will be red in your prompt; if `git status`
-would show you green output, the branch name will be green in your prompt;
-if both, it will be in yellow, etc.  A clean working directory with nothing
-to commit will show in blue.
-
-Untracked files present will add a bold white asterisk after the branch name.
+## Caveats
 
 Note that there are some edge cases if a merge is in progress, which are
 difficult to parse.  Therefore in *most* cases if you are merging, the
