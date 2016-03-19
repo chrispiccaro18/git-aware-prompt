@@ -77,3 +77,23 @@ source "${GITAWAREPROMPT}/main.sh"
 
 Once installed, just include `$git_prompt` in your `PS1` environment variable
 at the point you want the colorized git branch to be displayed.
+
+#### Mac OS X
+
+Default prompt from Apple:
+
+```bash
+PS1='\h:\W \u\$ '
+```
+
+Prompt customized to include git branch information:
+
+```bash
+PS1='\h:\W \u$git_prompt\$ '
+```
+
+The prompt I use on my Mac:
+
+```bash
+PS1='\t [\u \W]$git_prompt \! \$ '
+```
