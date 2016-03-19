@@ -1,19 +1,46 @@
 # Advanced Git Status Prompt
 
-Working with Git and its great branching/merging features is
-amazing. Constantly switching branches can be confusing though as you have to
-run `git status` to see which branch you're currently on.
+Git is the most advanced and flexible version control system in existence.
+Truthfully, it is a complete filesystem built on top of your existing
+filesystem.  It's perfectly suited for anything involving text, and makes
+large scale or extremely frequent edits a breeze.  No fuss about backups;
+if you make a mistake in editing you can just check the file back out
+from git and you're all set.
 
-The solution to this is to have your terminal prompt display the current
-branch. There's a [number][1] [of][2] [articles][3] [available][4] online
-about how to achieve this. This project is an attempt to make an easy to
-install/configure solution.
+Switching between branches is a very common action with git, and the
+repo that I forked this repository from had a much simpler version of
+code, which would simply allow you to display the name of the currently
+checked out branch in your command line prompt.
 
-[1]: http://aaroncrane.co.uk/2009/03/git_branch_prompt/
-[2]: http://railstips.org/2009/2/2/bedazzle-your-bash-prompt-with-git-info
-[3]: http://techblog.floorplanner.com/2008/12/14/working-with-git-branches/
-[4]: http://www.intridea.com/2009/2/2/git-status-in-your-prompt
+I went a little further than that.  For me, although I do switch branches
+frequently, the real *action* I'm doing is editing files.  The reason that
+I personally need to run `git status` frequently is not to see what branch
+I'm on so much as to see which files I've modified, whether I've staged
+the modifications to be committed, whether I've created any new files that
+are as of yet untracked by git, etc.  I wanted a prompt that could display
+all of that information at a glance--color coded.
 
+That's what I've created here.
+
+There are a few caveats with regard to extremely advanced states that you
+may get into (merge in progress, rebase in progress, possibly cherry-pick
+in progress, etc).  These are mentioned briefly below.  They're rather
+difficult to parse from the `git status --porcelain` command, though--
+actually most of these special states aren't even indicated in any way
+by `git status --porcelain`--so I've ignored these for the most part.
+
+The basic table of colors that will be shown is:
+
+- blue - clean working directory, nothing to commit
+- green - changes have been staged but not committed
+- red - changes have been made in the working directory but not staged
+- yellow - there are changes in the index and further changes in the working directory
+
+If there are untracked files in your working directory, a bold white
+asterisk will be added after the branch name for any of the above statuses.
+
+Note that this makes for a total of 8 options.  I've separated these
+fairly cleanly in the code, so feel free to tweak them to your preference.
 
 ## Overview
 
@@ -58,71 +85,5 @@ source "${GITAWAREPROMPT}/main.sh"
 
 ## Configuring
 
-Once installed, there will be new `$git_branch` and `$git_dirty` variables
-available to use in the `PS1` environment variable, along with a number of
-color helper variables which you can see a list of in [colors.sh][].
-
-[colors.sh]: https://github.com/jimeh/git-aware-prompt/blob/master/colors.sh
-
-If you want to know more about how to customize your prompt, I recommend
-this article: [How to: Change / Setup bash custom prompt (PS1)][how-to]
-
-[how-to]: http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
-
-
-### Suggested Prompts
-
-Below are a few suggested prompt configurations. Simply paste the code at the
-end of the same file you pasted the installation code into earlier.
-
-
-#### Mac OS X
-
-```bash
-export PS1="\u@\h \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
-```
-
-Optionally, if you want a nice pretty prompt when using `sudo -s`, also add
-this line:
-
-```bash
-export SUDO_PS1="\[$bakred\]\u@\h\[$txtrst\] \w\$ "
-```
-
-
-#### Ubuntu
-
-Standard:
-
-```bash
-export PS1="\${debian_chroot:+(\$debian_chroot)}\u@\h:\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
-```
-
-Colorized:
-
-```bash
-export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
-```
-
-
-## Updating
-
-Assuming you followed the default installation instructions and cloned this
-repo to `~/.bash/git-aware-prompt`:
-
-```bash
-cd ~/.bash/git-aware-prompt
-git pull
-```
-
-
-## Usage Tips
-
-To view other user's tips, please check the
-[Usage Tips](https://github.com/jimeh/git-aware-prompt/wiki/Usage-Tips) wiki
-page. Or if you have tips of your own, feel free to add them :)
-
-
-## License
-
-[CC0 1.0 Universal](http://creativecommons.org/publicdomain/zero/1.0/)
+Once installed, just include `$git_prompt` in your `PS1` environment variable
+at the point you want the colorized git branch to be displayed.
