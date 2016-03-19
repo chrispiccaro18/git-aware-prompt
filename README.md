@@ -1,4 +1,4 @@
-# Git Aware Prompt
+# Advanced Git Status Prompt
 
 Working with Git and its great branching/merging features is
 amazing. Constantly switching branches can be confusing though as you have to
@@ -21,8 +21,22 @@ If you `cd` to a Git working directory, you will see the current Git branch
 name displayed in your terminal prompt. When you're not in a Git working
 directory, your prompt works like normal.
 
-![Git Branch in Prompt](https://raw.github.com/jimeh/git-aware-prompt/master/preview.png)
+The branch will be shown in different colors depending on what the status
+of your index and working directory is.  If `git status` would show you
+red output, the branch name will be red in your prompt; if `git status`
+would show you green output, the branch name will be green in your prompt;
+if both, it will be in yellow, etc.  A clean working directory with nothing
+to commit will show in blue.
 
+Untracked files present will add a bold white asterisk after the branch name.
+
+Note that there are some edge cases if a merge is in progress, which are
+difficult to parse.  Therefore in *most* cases if you are merging, the
+branch name will appear in purple followed by the word "merging", but in
+certain advanced scenarios (i.e. stopping during an interactive rebase to
+edit a commit, or performing a nonconflicting merge with `--no-commit`)
+you will simply have to use the 'git status' command to get a proper
+explanation of what's going on.  I can't do everything.  :)
 
 ## Installation
 
