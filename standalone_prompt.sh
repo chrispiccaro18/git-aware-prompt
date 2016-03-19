@@ -1,3 +1,16 @@
+# Source this file from your ~/.bashrc or ~/.bash_profile
+# for color coded git branch information in your shell prompt.
+#
+# The last line ("PS1=...") should be commented out to allow
+# your own customized prompt to be set in your ~/.bashrc,
+# but it serves as an example of how to use the git prompting
+# information and is the actual prompt that I use personally.
+#
+# If you find this code helpful I'd like hearing about it!
+# You can email me at <mikeweilgart (at) gmail (dot) com>
+#
+# --Mike Weilgart
+
 # Color codes thanks to https://github.com/jimeh/git-aware-prompt/blob/master/colors.sh
 # Regular
 txtblk="$(tput setaf 0 2>/dev/null || echo '\e[0;30m')"  # Black
