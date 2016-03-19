@@ -72,6 +72,15 @@ export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
 ```
 
+## Alternate Installation
+
+My own preference is to have all related data in a single file.  I *could*
+use `colors.sh` by itself, but since I only use it for this script, I have
+made a standalone version of all the code from this repo,
+`standalone_prompt.sh`, which can be sourced by itself and will work with
+no layers of indirection.  For actual installation you may want to comment
+out the line in the standalone prompt file which sets your `PS1` variable
+and set it yourself in your `.bashrc` or `.bash_profile`.
 
 ## Configuring
 
