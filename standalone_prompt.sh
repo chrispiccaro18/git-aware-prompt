@@ -1,3 +1,4 @@
+# Color codes thanks to https://github.com/jimeh/git-aware-prompt/blob/master/colors.sh
 # Regular
 txtblk="$(tput setaf 0 2>/dev/null || echo '\e[0;30m')"  # Black
 txtred="$(tput setaf 1 2>/dev/null || echo '\e[0;31m')"  # Red
