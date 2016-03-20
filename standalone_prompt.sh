@@ -52,7 +52,9 @@ get_git_status_for_prompt() {
     branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
     [ "HEAD" = "$branch" ] && branch="-detached-"
     if [ "" = "$status" ]; then
-      git_prompt=" $txtcyn($branch)$txtrst"
+      gitclrbeg="$txtcyn"
+      git_prompt=" ($branch)"
+      gitclrend="$txtrst"
     else
       local workdir_status index_status
       workdir_status="$(printf %s\\n "$status" | cut -c 2)"
@@ -81,42 +83,63 @@ get_git_status_for_prompt() {
 
       case "$abbrev_status" in
         (000) # Clean - should have been caught.  Odd.
-          git_prompt=" $bldwht($branch WTF)$txtrst"
+          gitclrbeg="$bldwht"
+          git_prompt=" ($branch WTF)"
+          gitclrend="$txtrst"
           ;;
         (100) # Untracked files otherwise clean
-          git_prompt=" $txtcyn($branch)$bldwht*$txtrst"
+          gitclrbeg="$txtcyn"
+          git_prompt=" ($branch)*"
+          gitclrend="$txtrst"
           ;;
         (010) # Unadded tracked changes
-          git_prompt=" $txtred($branch)$txtrst"
+          gitclrbeg="$txtred"
+          git_prompt=" ($branch)"
+          gitclrend="$txtrst"
           ;;
         (110) # Same plus untracked files
-          git_prompt=" $txtred($branch)$bldwht*$txtrst"
+          gitclrbeg="$txtred"
+          git_prompt=" ($branch)*"
+          gitclrend="$txtrst"
           ;;
         (001) # Staged changes
-          git_prompt=" $txtgrn($branch)$txtrst"
+          gitclrbeg="$txtgrn"
+          git_prompt=" ($branch)"
+          gitclrend="$txtrst"
           ;;
         (101) # Plus untracked files
-          git_prompt=" $txtgrn($branch)$bldwht*$txtrst"
+          gitclrbeg="$txtgrn"
+          git_prompt=" ($branch)*"
+          gitclrend="$txtrst"
           ;;
         (011) # Unstaged and staged changes
-          git_prompt=" $txtylw($branch)$txtrst"
+          gitclrbeg="$txtylw"
+          git_prompt=" ($branch)"
+          gitclrend="$txtrst"
           ;;
         (111) # Plus untracked files
-          git_prompt=" $txtylw($branch)$bldwht*$txtrst"
+          gitclrbeg="$txtylw"
+          git_prompt=" ($branch)*"
+          gitclrend="$txtrst"
           ;;
         (*) # Unexpected failure
-          git_prompt=" $bldwht($branch WTFH)$txtrst"
+          gitclrbeg="$bldwht"
+          git_prompt=" ($branch WTFH)"
+          gitclrend="$txtrst"
           ;;
       esac
       case "$workdir_status$index_status" in
         (*U*)
-          # git_prompt="$git_prompt $txtpur(merging)$txtrst"
-          git_prompt=" $txtpur($branch - MERGING)$txtrst"
+          gitclrbeg="$txtpur"
+          git_prompt=" ($branch - MERGING)"
+          gitclrend="$txtrst"
           ;;
       esac
     fi
   else
+    gitclrbeg=""
     git_prompt=""
+    gitclrend=""
   fi
 }
 
