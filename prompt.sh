@@ -8,7 +8,7 @@ get_git_status_for_prompt() {
     [ "HEAD" = "$branch" ] && branch="-detached-"
     if [ "" = "$status" ]; then
       # Working directory and index fully clean, no further logic needed
-      git_prompt=" $txtcyn($branch)$txtrst"
+      git_prompt=" - $txtcyn[$branch]$txtrst"
     else
       local workdir_status index_status
       workdir_status="$(printf %s\\n "$status" | cut -c 2)"
@@ -37,37 +37,37 @@ get_git_status_for_prompt() {
 
       case "$abbrev_status" in
         (000) # Clean - should have been caught.  Odd.
-          git_prompt=" $bldwht($branch WTF)$txtrst"
+          git_prompt=" - $bldwht($branch WTF)$txtrst"
           ;;
         (100) # Untracked files otherwise clean
-          git_prompt=" $txtcyn($branch)$bldwht*$txtrst"
+          git_prompt=" - $txtcyn[$branch]$bldwht*$txtrst"
           ;;
         (010) # Unadded tracked changes
-          git_prompt=" $txtred($branch)$txtrst"
+          git_prompt=" - $txtred[$branch]$txtrst"
           ;;
         (110) # Same plus untracked files
-          git_prompt=" $txtred($branch)$bldwht*$txtrst"
+          git_prompt=" - $txtred[$branch]$bldwht*$txtrst"
           ;;
         (001) # Staged changes
-          git_prompt=" $txtgrn($branch)$txtrst"
+          git_prompt=" - $txtgrn[$branch]$txtrst"
           ;;
         (101) # Plus untracked files
-          git_prompt=" $txtgrn($branch)$bldwht*$txtrst"
+          git_prompt=" - $txtgrn[$branch]$bldwht*$txtrst"
           ;;
         (011) # Unstaged and staged changes
-          git_prompt=" $txtylw($branch)$txtrst"
+          git_prompt=" - $txtylw[$branch]$txtrst"
           ;;
         (111) # Plus untracked files
-          git_prompt=" $txtylw($branch)$bldwht*$txtrst"
+          git_prompt=" - $txtylw[$branch]$bldwht*$txtrst"
           ;;
         (*) # Unexpected failure
-          git_prompt=" $bldwht($branch WTFH)$txtrst"
+          git_prompt=" - $bldwht[$branch WTFH]$txtrst"
           ;;
       esac
       case "$workdir_status$index_status" in
         (*U*)
           # Merge is in progress
-          git_prompt=" $txtpur($branch - MERGING)$txtrst"
+          git_prompt=" - $txtpur[$branch - MERGING]$txtrst"
 
           # This logic could be improved, as evidently a merge
           # can be in progress (as shown by 'git status')
